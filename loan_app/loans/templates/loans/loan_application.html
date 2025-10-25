@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-title {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .error-icon {
+            margin-right: 10px;
+        }
+        .form-errors {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .form-errors ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .form-errors li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Loan Application</h1>
+
+        {% if error %}
+        <div class="error-message">
+            <span class="error-icon">⚠️</span>
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="form-errors">
+                <strong>Form Errors:</strong>
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.income.id_for_label }}" class="form-label">{{ form.income.label }}</label>
+                {{ form.income }}
+                {% if form.income.errors %}
+                <div class="form-errors">
+                    {{ form.income.errors }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.credit_score.id_for_label }}" class="form-label">{{ form.credit_score.label }}</label>
+                {{ form.credit_score }}
+                {% if form.credit_score.errors %}
+                <div class="form-errors">
+                    {{ form.credit_score.errors }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.loan_amount.id_for_label }}" class="form-label">{{ form.loan_amount.label }}</label>
+                {{ form.loan_amount }}
+                {% if form.loan_amount.errors %}
+                <div class="form-errors">
+                    {{ form.loan_amount.errors }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.years_employed.id_for_label }}" class="form-label">{{ form.years_employed.label }}</label>
+                {{ form.years_employed }}
+                {% if form.years_employed.errors %}
+                <div class="form-errors">
+                    {{ form.years_employed.errors }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.points.id_for_label }}" class="form-label">{{ form.points.label }}</label>
+                {{ form.points }}
+                {% if form.points.errors %}
+                <div class="form-errors">
+                    {{ form.points.errors }}
+                </div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn-submit">Submit Application</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
