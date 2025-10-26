@@ -21,9 +21,13 @@ def loan_application(request):
                 "points": form.cleaned_data["points"],
             }
 
-            api_url = "http://localhost:8000/api/loan-application/"
+            api_url = "http://loan_api:8000/predict"
+            headers = {
+                "accept": "application/json",
+                "Content-Type": "application/json",
+            }
             try:
-                response = requests.post(api_url, json=data, timeout=5)
+                response = requests.post(api_url, json=data, headers=headers, timeout=5)
                 response.raise_for_status()
 
                 result = response.json()
