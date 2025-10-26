@@ -5,9 +5,19 @@ name = "loan_app"
 platforms = ["linux-64"]
 version = "0.1.0"
 
+[environments]
+default = []
+dev = ["default", "dev"]
+
 [tasks]
+docker-build = "docker build -t loan_app ."
+docker-run = "docker run --privileged -p 8001:8001 loan_app"
 
 [dependencies]
 django = ">=5.2.7,<6"
 python = ">=3.14.0,<3.15"
 requests = ">=2.31.0"
+
+[feature.dev.tasks]
+test-deploy = "python loan_app/manage.py runserver 0.0.0.0:8001"
+
