@@ -30,7 +30,18 @@ def loan_application(request):
                 response = requests.post(api_url, json=data, headers=headers, timeout=5)
                 response.raise_for_status()
 
-                result = response.json()
+                api_response = response.json()
+
+                if isinstance(api_response, dict) and "approve" in api_response:
+                    if api_response["approve"]:
+                        result = {
+                            "message": "Congratulations, your application was approved."
+                        }
+                    else:
+                        result = {"message": "Unfortunately, your request was denied."}
+                else:
+                    result = api_response
+
                 return render(
                     request, "loans/success.html", {"result": result, "form": form}
                 )
