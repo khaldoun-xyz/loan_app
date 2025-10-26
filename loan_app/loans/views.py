@@ -31,14 +31,9 @@ def loan_application(request):
                     request, "loans/success.html", {"result": result, "form": form}
                 )
 
-            except (
-                requests.exceptions.ConnectionError,
-                requests.exceptions.Timeout,
-                requests.exceptions.HTTPError,
-                requests.exceptions.RequestException,
-            ):
+            except requests.exceptions.RequestException:
                 result = {
-                    "message": "Thank you. A loan expert will review your claim and get back to you shortly."
+                    "message": "Thank you. A loan expert will review your application and get back to you shortly."
                 }
                 return render(
                     request, "loans/success.html", {"result": result, "form": form}
